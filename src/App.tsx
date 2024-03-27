@@ -1,5 +1,7 @@
+import Cyfra from "./Cyfra"
+
 function App() {
-	return <p>Hello</p>
+	return <Cyfra />
 }
 
 export default App
