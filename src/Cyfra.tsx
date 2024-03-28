@@ -10,11 +10,19 @@ const styl_off = {
 	fill: kolor_off
 }
 
-const spacja = 10
-const minus = 11
-
 const segmenty = [
 	[true, true, true, true, true, true, false], // 0
+	[false, true, true, false, false, false, false], // 1
+	[true, true, false, true, true, false, true], // 2
+	[true, true, true, true, false, false, true], // 3
+	[false, true, true, false, false, true, true], // 4
+	[true, false, true, true, false, true, true], // 5
+	[true, false, true, true, true, true, true], // 6
+	[true, true, true, false, false, false, false], // 7
+	[true, true, true, true, true, true, true], // 8
+	[true, true, true, true, false, true, true], // 9
+	[false, false, false, false, false, false, false], // spacja
+	[false, false, false, false, false, false, true], // kreska
 ]
 
 const kształty = [
@@ -28,10 +36,7 @@ const kształty = [
 	"M 174.588 231.374 C 174.578 235.037 173.127 238.549 170.54 241.14 C 167.952 243.73 164.433 245.185 160.772 245.185 C 157.113 245.185 153.602 243.73 151.01 241.14 C 148.418 238.549 146.959 235.037 146.959 231.374 C 146.959 227.711 148.42 224.199 151.008 221.608 C 153.596 219.018 157.115 217.563 160.775 217.563 C 164.434 217.563 167.945 219.018 170.537 221.608 C 173.129 224.199 174.588 227.711 174.588 231.374 Z",
 ]
 
-const cyfra = 0
-const kropka = true
-
-function Cyfra() {
+function Cyfra({cyfra, kropka}: {cyfra: number, kropka: boolean}) {
 	return <svg
 			viewBox="0 0 180 250"
 			version="1.1"
