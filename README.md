@@ -13,3 +13,7 @@ Standardowy Vite:
 npm install
 npm run dev
 ```
+
+## Kreditsy
+
+- Kształty wyświetlacza siedmiosegmentowego: [Posy (Michiel de Boer)](http://www.michieldb.nl/other/segments/)
