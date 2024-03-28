@@ -9,3 +9,8 @@ Vi havas kvar fundamentajn liberecojn:
 - La libereco por plibonigi la programon, kaj disdoni viajn plibonigojn al la publiko, por helpi ĉiujn (libereco 3). Atingo al la fontkodo estas antaŭkondiĉo por tio ĉi.
 
 Vi ne povas malpermesi ia de supraj liberecoj por iu. Vi ne povas permesi, ke iu malpermesas ia de supraj liberecoj en tia produkto aŭ en produkto, kio baziĝas de tia produkto.
+
+Ekstera kodo
+------------
+
+Formoj de cifroj (en dosiero src/Cyfra.tsx) venas el Posy (Michiel de Boer) kaj oni povas uzi ilin senkomerce, se oni volas uzi ilin komerce, oni devas kontakti kun Posy.
