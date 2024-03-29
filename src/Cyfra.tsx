@@ -23,6 +23,9 @@ const segmenty: Record<string, boolean[]> = {
 	'9': [true, true, true, true, false, true, true],
 	' ': [false, false, false, false, false, false, false],
 	'-': [false, false, false, false, false, false, true],
+	'E': [true, false, false, true, true, true, true],
+	'r': [false, false, false, false, true, false, true],
+	'o': [false, false, true, true, true, false, true],
 }
 
 const kształty = [
