@@ -2,8 +2,8 @@ import { useState } from "react";
 import Wyświetlacz from "./Wyswietlacz"
 import './App.sass'
 
-//type LiczbaWyświetlana = number
 type ZawartośćWyświetlacza = { napis: string, gdziePrzecinek: number }
+type LiczbaWyświetlana = number | ZawartośćWyświetlacza
 
 const długośćWyświetlacza = 12
 
@@ -11,7 +11,7 @@ function App() {
 	const [poPrzecinku, _setPoPrzecinku] = useState(2)
 	const [wykładnicza, _setWykładnicza] = useState(false)
 	const [napisInputa, setNapisInputa] = useState('')
-	const liczba = parseFloat(napisInputa)
+	const liczba = napisInputa
 
 	function zapiszMantyse(napisSurowy: string, miejsce: number): [string, number] {
 		const napisZeZnakiem = ((napisSurowy[0] === '-' ? '' : ' ') + napisSurowy)
@@ -21,7 +21,10 @@ function App() {
 		return [napis, gdziePrzecinek]
 	}
 
-	function ustalZawartośćWyświetlacza(liczba: number): ZawartośćWyświetlacza {
+	function ustalZawartośćWyświetlacza(liczba: LiczbaWyświetlana): ZawartośćWyświetlacza {
+		if(typeof liczba === 'object')
+			return liczba // liczba jest w formie napisu
+
 		if(!Number.isFinite(liczba))
 			return {napis: ' Error', gdziePrzecinek: -1}
 
@@ -53,7 +56,7 @@ function App() {
 		return {napis, gdziePrzecinek}
 	}
 
-	const {napis, gdziePrzecinek} = ustalZawartośćWyświetlacza(liczba)
+	const {napis, gdziePrzecinek} = ustalZawartośćWyświetlacza({napis: liczba, gdziePrzecinek: -1})
 	
 	return <>
 		<Wyświetlacz napis={napis} przecinek={gdziePrzecinek} długość={długośćWyświetlacza} />
