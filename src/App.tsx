@@ -1,23 +1,11 @@
-import Cyfra from "./Cyfra"
+import Wyświetlacz from "./Wyswietlacz"
 
 import './App.sass'
 
 function App() {
 	return <>
-		<div className="wyswietlacz">
-			<Cyfra cyfra=' ' kropka={false} />
-			<Cyfra cyfra='E' kropka={true} />
-			<Cyfra cyfra='r' kropka={false} />
-			<Cyfra cyfra='r' kropka={true} />
-			<Cyfra cyfra='o' kropka={false} />
-			<Cyfra cyfra='r' kropka={true} />
-			<Cyfra cyfra=' ' kropka={false} />
-			<Cyfra cyfra='7' kropka={true} />
-			<Cyfra cyfra='8' kropka={false} />
-			<Cyfra cyfra='9' kropka={true} />
-			<Cyfra cyfra=' ' kropka={false} />
-			<Cyfra cyfra='-' kropka={true} />
-		</div>
+		<Wyświetlacz napis="123456789012" przecinek={3} />
+		<Wyświetlacz napis=" Error -" przecinek={-1} />
 	</>
 }
 
