@@ -10,20 +10,20 @@ const styl_off = {
 	fill: kolor_off
 }
 
-const segmenty = [
-	[true, true, true, true, true, true, false], // 0
-	[false, true, true, false, false, false, false], // 1
-	[true, true, false, true, true, false, true], // 2
-	[true, true, true, true, false, false, true], // 3
-	[false, true, true, false, false, true, true], // 4
-	[true, false, true, true, false, true, true], // 5
-	[true, false, true, true, true, true, true], // 6
-	[true, true, true, false, false, false, false], // 7
-	[true, true, true, true, true, true, true], // 8
-	[true, true, true, true, false, true, true], // 9
-	[false, false, false, false, false, false, false], // spacja
-	[false, false, false, false, false, false, true], // kreska
-]
+const segmenty: Record<string, boolean[]> = {
+	'0': [true, true, true, true, true, true, false],
+	'1': [false, true, true, false, false, false, false],
+	'2': [true, true, false, true, true, false, true],
+	'3': [true, true, true, true, false, false, true],
+	'4': [false, true, true, false, false, true, true],
+	'5': [true, false, true, true, false, true, true],
+	'6': [true, false, true, true, true, true, true],
+	'7': [true, true, true, false, false, false, false],
+	'8': [true, true, true, true, true, true, true],
+	'9': [true, true, true, true, false, true, true],
+	' ': [false, false, false, false, false, false, false],
+	'-': [false, false, false, false, false, false, true],
+}
 
 const kształty = [
 	"M 61.6164 39.765 L 121.296 39.765 L 136.519 5.36499 C 134.584 5.00499 132.577 4.81498 130.497 4.81498 L 65.4677 4.81498 C 52.7678 4.81498 40.7745 11.765 33.5124 22.045 Z",
@@ -36,7 +36,7 @@ const kształty = [
 	"M 174.588 231.374 C 174.578 235.037 173.127 238.549 170.54 241.14 C 167.952 243.73 164.433 245.185 160.772 245.185 C 157.113 245.185 153.602 243.73 151.01 241.14 C 148.418 238.549 146.959 235.037 146.959 231.374 C 146.959 227.711 148.42 224.199 151.008 221.608 C 153.596 219.018 157.115 217.563 160.775 217.563 C 164.434 217.563 167.945 219.018 170.537 221.608 C 173.129 224.199 174.588 227.711 174.588 231.374 Z",
 ]
 
-function Cyfra({cyfra, kropka}: {cyfra: number, kropka: boolean}) {
+function Cyfra({cyfra, kropka}: {cyfra: string, kropka: boolean}) {
 	return <svg
 			viewBox="0 0 180 250"
 			version="1.1"
