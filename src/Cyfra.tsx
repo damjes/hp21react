@@ -27,6 +27,7 @@ const segmenty: Record<string, boolean[]> = {
 	'E': [true , false, false, true , true , true , true ],
 	'r': [false, false, false, false, true , false, true ],
 	'o': [false, false, true , true , true , false, true ],
+	'_': [false, false, false, true , false, false, false],
 }
 
 const kształty = [
@@ -48,7 +49,7 @@ function Cyfra({cyfra, kropka}: {cyfra: string, kropka: boolean}) {
 			height="250"
 			style={{backgroundColor: kolor_tla}}>
 		<g>
-			{[...segmenty[cyfra], kropka].map((segment, i) => <path
+			{[...segmenty[cyfra] ?? segmenty['_'], kropka].map((segment, i) => <path
 				key={i}
 				d={kształty[i]}
 				style={segment ? styl_on : styl_off} />
