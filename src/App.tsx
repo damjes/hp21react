@@ -50,7 +50,8 @@ function App() {
 
 		const [mantysa, cecha] = liczba.toExponential(poPrzecinku).split('e')
 		const [mantysaZeZnakiem, gdziePrzecinek] = zapiszMantyse(mantysa, długośćWyświetlacza - 3)
-		const cechaZPoprawionymZnakiem = cecha.replace('+', ' ')
+		const cechaZWiodącymZerem = cecha.slice(1).padStart(2, '0')
+		const cechaZPoprawionymZnakiem = cecha[0].replace('+', ' ') + cechaZWiodącymZerem
 		const napis = mantysaZeZnakiem.padEnd(długośćWyświetlacza - 3) + cechaZPoprawionymZnakiem
 
 		return {napis, gdziePrzecinek}
