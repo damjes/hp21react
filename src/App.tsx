@@ -11,7 +11,7 @@ function App() {
 	const [poPrzecinku, _setPoPrzecinku] = useState(2)
 	const [wykładnicza, _setWykładnicza] = useState(false)
 	const [napisInputa, setNapisInputa] = useState('')
-	const liczba = napisInputa
+	const [liczba, setLiczba] = useState(0)
 
 	function zapiszMantyse(napisSurowy: string, miejsce: number): [string, number] {
 		const napisZeZnakiem = ((napisSurowy[0] === '-' ? '' : ' ') + napisSurowy)
@@ -56,12 +56,34 @@ function App() {
 		return {napis, gdziePrzecinek}
 	}
 
-	const {napis, gdziePrzecinek} = ustalZawartośćWyświetlacza({napis: liczba, gdziePrzecinek: -1})
+	function czyWykładniczaWStringu(napis: string): boolean {
+		if(napis[-3] === '-')
+			return true
+
+		if(napis[-3] === ' ')
+			return napis[-2] !== ' '
+
+		return false
+	}
+
+	function konwertujNaLiczbę(napis: string): number {
+		if(czyWykładniczaWStringu(napis)) {
+			const mantysa = napis.slice(0, -3)
+			const cecha = napis.slice(-3)
+			const liczba = mantysa + 'e' + cecha
+			return Number(liczba)
+		} else {
+			return Number(napis)
+		}
+	}
+
+	const {napis, gdziePrzecinek} = ustalZawartośćWyświetlacza(liczba)
 	
 	return <>
 		<Wyświetlacz napis={napis} przecinek={gdziePrzecinek} długość={długośćWyświetlacza} />
 		<input type="text" name="napis" value={napisInputa} onChange={e => setNapisInputa(e.target.value)} />
 		<p>{liczba}</p>
+		<button onClick={() => setLiczba(konwertujNaLiczbę(napisInputa))}>Konwertuj</button>
 	</>
 }
 
