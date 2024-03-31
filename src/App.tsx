@@ -7,15 +7,20 @@ type LiczbaWyświetlana = number | ZawartośćWyświetlacza
 
 const długośćWyświetlacza = 12
 
+const cyfry = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+
 function App() {
-	const [poPrzecinku, _setPoPrzecinku] = useState(2)
-	const [wykładnicza, _setWykładnicza] = useState(false)
-	const [napisInputa, setNapisInputa] = useState('')
-	const [liczba, setLiczba] = useState(0)
+	const [poPrzecinku, setPoPrzecinku] = useState(2)
+	const [wykładnicza, setWykładnicza] = useState(false)
+	const [x, setX] = useState<LiczbaWyświetlana>({napis: " 12345678 00", gdziePrzecinek: 4})
 
 	function zapiszMantyse(napisSurowy: string, miejsce: number): [string, number] {
+		console.log('napisSurowy', napisSurowy, 'miejsce', miejsce)
+		console.log('długość', napisSurowy.length)
 		const napisZeZnakiem = ((napisSurowy[0] === '-' ? '' : ' ') + napisSurowy)
-		const gdziePrzecinek = napisZeZnakiem.indexOf('.') - 1
+		const szukajPrzecinka = napisZeZnakiem.indexOf('.') - 1
+		console.log('szukajPrzecinka', szukajPrzecinka)
+		const gdziePrzecinek = szukajPrzecinka === -1-1 ? napisSurowy.length : szukajPrzecinka
 		const napis = napisZeZnakiem.replace('.', '').slice(0, miejsce - 1)
 
 		return [napis, gdziePrzecinek]
@@ -31,7 +36,14 @@ function App() {
 		const abs = Math.abs(liczba)
 
 		if(abs < 1e-99) {
-			return {napis: ' ' + '0'.repeat(poPrzecinku+1), gdziePrzecinek: 1}
+			const długośćMantysy = długośćWyświetlacza - (wykładnicza ? 2 : 0) - 2
+			const mantysa = ' ' + '0'
+				.repeat(poPrzecinku+1)
+				.slice(0, długośćMantysy)
+				.padEnd(długośćMantysy, ' ')
+			const cecha = wykładnicza ? ' 00' : ' '
+
+			return {napis: mantysa+cecha, gdziePrzecinek: 1}
 		}
 
 		if(abs > 1e99) {
@@ -49,7 +61,7 @@ function App() {
 		}
 
 		const [mantysa, cecha] = liczba.toExponential(poPrzecinku).split('e')
-		const [mantysaZeZnakiem, gdziePrzecinek] = zapiszMantyse(mantysa, długośćWyświetlacza - 3)
+		const [mantysaZeZnakiem, gdziePrzecinek] = zapiszMantyse(mantysa, długośćWyświetlacza - 2)
 		const cechaZWiodącymZerem = cecha.slice(1).padStart(2, '0')
 		const cechaZPoprawionymZnakiem = cecha[0].replace('+', ' ') + cechaZWiodącymZerem
 		const napis = mantysaZeZnakiem.padEnd(długośćWyświetlacza - 3) + cechaZPoprawionymZnakiem
@@ -58,33 +70,111 @@ function App() {
 	}
 
 	function czyWykładniczaWStringu(napis: string): boolean {
-		if(napis[-3] === '-')
+		if(napis[napis.length-3] === '-')
 			return true
 
-		if(napis[-3] === ' ')
-			return napis[-2] !== ' '
+		if(napis[napis.length-3] === ' ')
+			return napis[napis.length-2] !== ' '
 
 		return false
 	}
 
-	function konwertujNaLiczbę(napis: string): number {
+	function konwertujMantysęNaLiczbę(napis: string, gdziePrzecinek: number): number {
+		console.log('konwertujMantysęNaLiczbę', napis, gdziePrzecinek)
+
+		if(gdziePrzecinek === -1)
+			return Number(napis)
+
+		const mantysa = napis.slice(0, gdziePrzecinek+1) + '.' + napis.slice(gdziePrzecinek+1)
+		return Number(mantysa)
+	}
+
+	function konwertujNaLiczbę(napis: string, gdziePrzecinek: number): number {
 		if(czyWykładniczaWStringu(napis)) {
-			const mantysa = napis.slice(0, -3)
-			const cecha = napis.slice(-3)
+			const mantysa = konwertujMantysęNaLiczbę(napis.slice(0, -3), gdziePrzecinek)
+			const cecha = napis.slice(-3).replace(' ', '+')
 			const liczba = mantysa + 'e' + cecha
+			console.log('liczba', '"'+liczba+'"')
 			return Number(liczba)
 		} else {
-			return Number(napis)
+			return konwertujMantysęNaLiczbę(napis, gdziePrzecinek)
 		}
 	}
 
-	const {napis, gdziePrzecinek} = ustalZawartośćWyświetlacza(liczba)
+	function wprowadź(znak: string) {
+		const {napis, gdziePrzecinek} = typeof x === 'object' ? x : {
+			napis: ' '.repeat(długośćWyświetlacza),
+			gdziePrzecinek: -1
+		}
+
+		if(znak === 'enter') {
+			setX(konwertujNaLiczbę(napis, gdziePrzecinek))
+			return
+		}
+
+		console.log('napis', '"'+napis+'"')
+		console.log('gdziePrzecinek', gdziePrzecinek)
+		console.log('czyWykładniczaWStringu(napis)', czyWykładniczaWStringu(napis))
+
+		if(czyWykładniczaWStringu(napis)) {
+			if(znak === '-') {
+				const mantysa = napis.slice(0, -3) // nie używamy konwertujMantysęNaLiczbę, bo chcemy stringa bez przecinka na potrzeby wyświetlacza
+				const cecha = napis.slice(-2)
+				const znakCechy = napis[napis.length-3] === ' ' ? '-' : ' '
+				const nowyNapis = mantysa + znakCechy + cecha
+				setX({napis: nowyNapis, gdziePrzecinek})
+				return
+			}
+
+			if(!cyfry.includes(znak))
+				return
+
+			const mantysa = napis.slice(0, -3)
+			const nowyNapis = mantysa + napis[napis.length-3] +napis[napis.length-1] + znak
+			setX({napis: nowyNapis, gdziePrzecinek})
+		}
+
+		// TODO
+	}
+
+	const {napis, gdziePrzecinek} = ustalZawartośćWyświetlacza(x)
 	
 	return <>
 		<Wyświetlacz napis={napis} przecinek={gdziePrzecinek} długość={długośćWyświetlacza} />
-		<input type="text" name="napis" value={napisInputa} onChange={e => setNapisInputa(e.target.value)} />
-		<p>{liczba}</p>
-		<button onClick={() => setLiczba(konwertujNaLiczbę(napisInputa))}>Konwertuj</button>
+		<p>
+			<input type="checkbox" checked={wykładnicza} onChange={e => setWykładnicza(e.target.checked)} />
+			Notacja wykładnicza Po przecinku:
+			<input
+				type="number"
+				value={poPrzecinku}
+				onChange={e => setPoPrzecinku(Number(e.target.value))}
+				min={0}
+				max={9}
+				/>
+		</p>
+		<p>
+			<button onClick={() => wprowadź('7')}>7</button>
+			<button onClick={() => wprowadź('8')}>8</button>
+			<button onClick={() => wprowadź('9')}>9</button>
+		</p>
+		<p>
+			<button onClick={() => wprowadź('4')}>4</button>
+			<button onClick={() => wprowadź('5')}>5</button>
+			<button onClick={() => wprowadź('6')}>6</button>
+		</p>
+		<p>
+			<button onClick={() => wprowadź('1')}>1</button>
+			<button onClick={() => wprowadź('2')}>2</button>
+			<button onClick={() => wprowadź('3')}>3</button>
+		</p>
+		<p>
+			<button onClick={() => wprowadź('0')}>0</button>
+			<button onClick={() => wprowadź('.')}>.</button>
+			<button onClick={() => wprowadź('-')}>+/-</button>
+		</p>
+		<p>
+			<button onClick={() => wprowadź('enter')}>enter</button>
+		</p>
 	</>
 }
 
