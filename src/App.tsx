@@ -27,8 +27,13 @@ function App() {
 	}
 
 	function ustalZawartośćWyświetlacza(liczba: LiczbaWyświetlana): ZawartośćWyświetlacza {
-		if(typeof liczba === 'object')
-			return liczba // liczba jest w formie napisu
+		if(typeof liczba === 'object') {
+			if(liczba.gdziePrzecinek !== -1)
+				return liczba
+
+			const napis = liczba.napis.replace('-', ' ')
+			return {napis, gdziePrzecinek: napis.indexOf(' ', 1) -1 }
+		}
 
 		if(!Number.isFinite(liczba))
 			return {napis: ' Error', gdziePrzecinek: -1}
