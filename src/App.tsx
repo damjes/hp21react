@@ -12,7 +12,7 @@ const cyfry = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 function App() {
 	const [poPrzecinku, setPoPrzecinku] = useState(2)
 	const [wykładnicza, setWykładnicza] = useState(false)
-	const [x, setX] = useState<LiczbaWyświetlana>({napis: " 12345678 00", gdziePrzecinek: 4})
+	const [x, setX] = useState<LiczbaWyświetlana>({napis: " 12345678   ", gdziePrzecinek: 4})
 
 	function zapiszMantyse(napisSurowy: string, miejsce: number): [string, number] {
 		console.log('napisSurowy', napisSurowy, 'miejsce', miejsce)
@@ -140,6 +140,17 @@ function App() {
 		}
 
 		// TODO
+		if(znak === 'eex') {
+			setX({napis: napis+' 00', gdziePrzecinek})
+			return
+		}
+
+		if(znak === '-') {
+			const znak = napis[0] === ' ' ? '-' : ' '
+			const nowyNapis = znak + napis.slice(1)
+			setX({napis: nowyNapis, gdziePrzecinek})
+			return
+		}
 	}
 
 	const {napis, gdziePrzecinek} = ustalZawartośćWyświetlacza(x)
@@ -179,6 +190,7 @@ function App() {
 		</p>
 		<p>
 			<button onClick={() => wprowadź('enter')}>enter</button>
+			<button onClick={() => wprowadź('eex')}>eex</button>
 		</p>
 	</>
 }
