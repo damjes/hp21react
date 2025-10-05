@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Wyświetlacz from "./Wyswietlacz"
 import './App.sass'
+import DebugWyswietlacza from "./DebugWyswietlacza";
 
 type ZawartośćWyświetlacza = { napis: string, gdziePrzecinek: number }
 type LiczbaWyświetlana = number | ZawartośćWyświetlacza
@@ -58,7 +59,7 @@ function App() {
 			const napis = znak + mantysa + ' ' + wykładnik
 			return {napis, gdziePrzecinek: 1}
 		}
-		
+
 		if(!wykładnicza && abs > Math.pow(10, -poPrzecinku) && abs < Math.pow(10, długośćWyświetlacza - 2)){
 			const napisSurowy = liczba.toFixed(poPrzecinku)
 			const [napis, gdziePrzecinek] = zapiszMantyse(napisSurowy, długośćWyświetlacza)
@@ -154,7 +155,7 @@ function App() {
 	}
 
 	const {napis, gdziePrzecinek} = ustalZawartośćWyświetlacza(x)
-	
+
 	return <>
 		<Wyświetlacz napis={napis} przecinek={gdziePrzecinek} długość={długośćWyświetlacza} />
 		<p>
@@ -168,6 +169,7 @@ function App() {
 				max={9}
 				/>
 		</p>
+			<DebugWyswietlacza x={x} setX={setX} />
 		<p>
 			<button onClick={() => wprowadź('7')}>7</button>
 			<button onClick={() => wprowadź('8')}>8</button>
