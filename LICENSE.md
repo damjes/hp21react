@@ -1,16 +1,30 @@
-DamjesaP – Damjesa Permesilo
-============================
+# DamjesaP – Damjesa Permesilo v. 2.1
 
-Vi havas kvar fundamentajn liberecojn:
+1. Ĉiu uzanto havas kvar fundamentajn liberecojn, kiujn oni povas ĝui sentempe en la tuta mondo:
 
-- La libereco por uzi la programon, por iu ajn celo (libereco 0).
-- La libereco por studi kiel la programo funkcias, kaj ŝanĝi ĝin por viaj bezonoj (libereco 1). Dispono pri la fontkodo de la programo estas antaŭkondiĉo por tio ĉi.
-- La libereco por disdoni kopiojn, do vi povas helpi vian najbaron (libereco 2).
-- La libereco por plibonigi la programon, kaj disdoni viajn plibonigojn al la publiko, por helpi ĉiujn (libereco 3). Atingo al la fontkodo estas antaŭkondiĉo por tio ĉi.
+    0. La libereco uzi la verkon por ajna celo.
 
-Vi ne povas malpermesi ia de supraj liberecoj por iu. Vi ne povas permesi, ke iu malpermesas ia de supraj liberecoj en tia produkto aŭ en produkto, kio baziĝas de tia produkto.
+    1. La libereco studi kiel la verko funkcias kaj ŝanĝi ĝin laŭ siaj bezonoj.
+       Atingebleco de la fonta formo de la verko estas antaŭkondiĉo por tio ĉi.
 
-Ekstera kodo
-------------
+    2. La libereco distribui kopiojn, por ke la uzanto, ekzemple, povu helpi siajn najbaron.
 
-Formoj de cifroj (en dosiero src/Cyfra.tsx) venas el Posy (Michiel de Boer) kaj oni povas uzi ilin senkomerce, se oni volas uzi ilin komerce, oni devas kontakti kun Posy.
+    3. La libereco plibonigi la verkon kaj kundividi siajn plibonigojn kun ĉiuj.
+       Atingebleco de la fonta formo de la verko estas antaŭkondiĉo por tio ĉi.
+
+2. Neniu rajtas nuligi aŭ limigi iun el la supraj liberecoj por iu ajn, inkluzive per teritoria aŭ geografia limigo de rajtoj.
+
+3. Neniu rajtas permesi, ke tiuj liberecoj estu nuligitaj aŭ limigitaj
+   en derivaĵoj por iu ajn.
+
+4. Derivaĵoj devas klare indiki ĉu ili estas rilataj aŭ ne rilataj kun la originala aŭtoro,
+   interalie per mencio de la nomo de la originala aŭtoro kaj eventuala ŝanĝo de nomo kaj marko.
+
+5. La verko estas provizata _kiel estas_, sen ajna eksplicita aŭ implicita garantio.
+   Uzanto uzas la verkon je sia propra risko.
+
+---
+
+Copyleft 2025 rev. Damjes
+
+Ĉi tiu teksto mem estas libera sub la sama permesilo.
